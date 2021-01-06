@@ -38,7 +38,7 @@ class KeyMon implements KeyListener {
 	this.w = w;
     }
     public void keyPressed(KeyEvent e) {
-	if(!w.isGameOver) 
+	if(w.GameStatus == 1) 
 	{ // If the game is running
 	    if(e.getKeyCode() == KeyEvent.VK_SPACE) 
 	    { // If SPACE is pressed
@@ -59,7 +59,7 @@ class KeyMon implements KeyListener {
 		w.resetStats();
 		BallBreaker.tmr.start(); 
 	    }
-	}else{ 
+	}else if(GameStatus == 0){ 
 	    if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 		w.resetPlayer(); 
 		w.resetBricks(); 
@@ -69,6 +69,11 @@ class KeyMon implements KeyListener {
 	    if(e.getKeyCode() == KeyEvent.VK_R) {
 		w.resetScores();
 		w.repaint();
+	    }
+	}else if(w.GameStatus == 2){ //Tampilan awal tekan space untuk main
+	    if(e.getKeyCode() == KeyEvent.VK_SPACE) { // If 'SPACE' is pressed
+		w.GameStatus = 1;
+		BallBreaker.tmr.start();
 	    }
 	}
 	if(BallBreaker.tmr.isRunning()) { // If the game is running

@@ -44,7 +44,8 @@ public class World extends JComponent
     private Ellipse2D e; // graphics object for Ball
     private Rectangle2D c; // Graphics object for Player
     private int score = 0; // Game score
-    public boolean isGameOver = false; // Denotes whether the game is over or not
+    //2 = masih main menu 0 = over 1 = main
+    public int GameStatus = 2; // Denotes whether the game is over or not
     private int lives = 3; // Number of lives
     private double impact_distance; /* distance from point of impact 
                        to the center of the Player block */
@@ -57,7 +58,7 @@ public class World extends JComponent
     public Tgambar tgambar;
     public boolean bot = false, selectingDifficulty;
     public boolean w, s, up, down;
-    public int gameStatus = 0, scoreLimit = 7, playerWon; //0 = Menu, 1 = Paused, 2 = Playing, 3 = Over
+    public  scoreLimit = 7, playerWon;
     public int botDifficulty, botMoves, botCooldown = 0;
     public Random random;
     public JFrame jframe;
@@ -97,7 +98,8 @@ public class World extends JComponent
         g.setColor(Color.BLACK);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         frc = g2.getFontRenderContext();
-        if(isGameOver){ 
+        //0 artinya sudah over gamenya
+        if(GameStatus == 0){ 
             g2.setColor(Color.BLACK);
             //g.fillRect(0, 0, width, height);
             t1 = new TextLayout("Game Over", f1, frc);
@@ -122,90 +124,42 @@ public class World extends JComponent
         //        g.drawString("PAUSED", width/2 -103, height/2 -25);
         //    }
         //}
-        e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
-        c.setFrame(player.x, player.y, player.width, player.height); // Set player position
-        g2.fill(e);
-        g2.draw(e);
-        g2.fill(c);
-        g2.draw(c);
-        g2.drawString("Score: "+Integer.toString(score), 20, 560);
-        g2.drawString("Game By Fitrah And Ivan", 250, 720);
-        g2.drawString("Lives: "+Integer.toString(lives)+" Remaining", 650, 560);
-        // Draw the Bricks
-        for(Brick[] Row : bricks) {
-            for(Brick brick : Row) {
-                if(brick.isRendered) {          
-                    g2.setColor(Color.blue);           
-                    g2.fill(brick.br);
-                    g2.setColor(Color.green);
-                    g2.draw(brick.br);          
+        //1 artinya sedang main
+        if(GameStatus == 1){
+            e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
+            c.setFrame(player.x, player.y, player.width, player.height); // Set player position
+            g2.fill(e);
+            g2.draw(e);
+            g2.fill(c);
+            g2.draw(c);
+            g2.drawString("Score: "+Integer.toString(score), 20, 560);
+            g2.drawString("Game By Fitrah And Ivan", 250, 720);
+            g2.drawString("Lives: "+Integer.toString(lives)+" Remaining", 650, 560);
+            // Draw the Bricks
+            for(Brick[] Row : bricks) {
+                for(Brick brick : Row) {
+                    if(brick.isRendered) {          
+                        g2.setColor(Color.blue);           
+                        g2.fill(brick.br);
+                        g2.setColor(Color.green);
+                        g2.draw(brick.br);          
+                    }
                 }
             }
         }
-    }
-    public void render(Graphics2D g1)
-    {
-        g1.setColor(Color.BLUE);
-        g1.fillRect(0, 0, width, height);
-        g1.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        if (gameStatus == 0)
-        {
-            g1.setColor(Color.WHITE);
-            g1.setFont(new Font("Arial", 1, 50));
-            g1.drawString("SELAMAT DATANG DIGAME", width / 5, 50);
-            if (!selectingDifficulty)
-            {
-                g1.setFont(new Font("Arial", 1, 30));
-                g1.drawString("Press Space to Play", width / 2 - 150, height / 2 - 25);
-                g1.drawString("Press Shift to Play with Bot", width / 2 - 200, height / 2 + 25);
-                g1.drawString("<< Score Limit: " + scoreLimit + " >>", width / 2 - 150, height / 2 + 75);
-                g1.drawString("Keterangan : ", width / 2 - 150, height / 2 + 125);
-                g1.drawString("< = Mengurangi Poin", width / 2 - 150, height / 2 + 150);
-                g1.drawString("> = Menambah Poin", width / 2 - 150, height / 2 + 200);
-                g1.drawString("Space = Bermain", width / 2 - 150, height / 2 + 250);
-                g1.drawString("Shift = Bermain dengan bot", width / 2 - 150, height / 2 + 300);
-            }
-        }
-        if (selectingDifficulty)
-        {
-            String string = botDifficulty == 0 ? "Easy" : (botDifficulty == 1 ? "Medium" : "Hard");
-            g1.setFont(new Font("Arial", 1, 30));
-            g1.drawString("<< Bot Difficulty: " + string + " >>", width / 2 - 180, height / 2 - 25);
-            g1.drawString("Press Space to Play", width / 2 - 150, height / 2 + 25);
-        }
-        if (gameStatus == 1)
-        {
-            g1.setColor(Color.WHITE);
-            g1.setFont(new Font("ALGERIAN", 1, 50));
-            g1.drawString("PAUSED", width / 2 - 103, height / 2 - 25);
-        }
-        if (gameStatus == 1 || gameStatus == 2)
-        {
-            g1.setColor(Color.WHITE);
-            g1.setStroke(new BasicStroke(5f));
-            g1.drawLine(width / 2, 0, width / 2, height);
-            g1.setStroke(new BasicStroke(2f));
-            g1.drawOval(width / 2 - 150, height / 2 - 150, 300, 300);
-            g1.setFont(new Font("Arial", 1, 50));
-        }
-        if (gameStatus == 3)
-        {
-            g1.setColor(Color.WHITE);
-            g1.setFont(new Font("ARIAL", 1, 50));
-            g1.drawString("TERIMAKASIH TELAH BERMAIN", width / 6  , 50);
-            if (bot && playerWon == 2)
-            {
-                g1.drawString("The Bot Wins!", width / 2 - 170, 200);
-            }
-            else
-            {
-                g1.drawString("Player " + playerWon + " Wins!", width / 2 - 165, 200);
-            }
-            g1.setFont(new Font("Serif", 1, 30));
-            g1.drawString("Press Space to Play Again", width / 2 - 165, height / 2 - 25);
-            g1.drawString("Press ESC for Menu", width / 2 - 135, height / 2 + 25);
+        //2 artinya sedang main menu
+        if(GameStatus == 2){
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", 1, 50));
+            g.drawString("PONG", 700 / 2 - 75, 50);
+            g.setFont(new Font("Arial", 1, 30));
+            g.drawString("Press Space to Play", 700 / 2 - 150, 700 / 2 - 25);
+            g.drawString("Press Shift to Play with Bot", 700 / 2 - 200, 700 / 2 + 25);
+            //kalau ga di stop pas main menu bola nya udah jalan cuman ga keliatan
+            BallBreaker.tmr.stop();
         }
     }
+    
     public void resetPlayer() {
         // Resets the player position
         Dimension d = getSize();
@@ -223,10 +177,11 @@ public class World extends JComponent
         }
     }
     public void resetStats() {
-    // Resets the stats
-    lives = 3;
-    score = 0;
-    isGameOver = false;
+        // Resets the stats
+        lives = 3;
+        score = 0;
+        //1 artinya sedang main
+        GameStatus = 1;
     }
     public void handleEvent(KeyEvent e) {
         // Handles the keyboard events
@@ -356,12 +311,12 @@ public class World extends JComponent
             // Ball hits the bottom wall
             lives -= 1; // decrement the number of lives
             if(lives > 0) {
-            resetPlayer(); // Reset and resume if the player still has lives
+                resetPlayer(); // Reset and resume if the player still has lives
             }else {
-            // Declare the game to be over
-            isGameOver = true;
-            BallBreaker.tmr.stop();
-            manageScores();
+                // Declare the game to be over
+                GameStatus = 0;
+                BallBreaker.tmr.stop();
+                manageScores();
             }       
         }
         checkCollisionWithPlayer(); // Check collision with the player
@@ -403,7 +358,7 @@ public class World extends JComponent
                 }
                 ++score; // Increment score
                 if(score == 32) { // If score is 50 end the game
-                    isGameOver = true;
+                    GameStatus = 0;
                     BallBreaker.tmr.stop();
                     manageScores();
                 }

@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Player
+comment0.text=Class\ to\ denote\ a\ 'Player'\ block
+comment1.params=x\ y\ width\ height
+comment1.target=Player(double,\ double,\ double,\ double)
+numComments=2

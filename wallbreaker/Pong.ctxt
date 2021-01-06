@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Pong
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pong\ here.\r\n\ semua\ instruksi\ didalam\ game\ ada\ di\ dalam\ class\ ini.\ Class\ ini\ berfungsi\ untuk\ memanggil\ class\ yang\ lain\ dan\ menghubungkan\ semua\ class\ sehingga\ menjadikan\ sebuah\ game\ pong\ dengan\ algoritma-algoritma\ yang\ membuat\ game\ ini\ tidak\ monotn\ tetapi\ bisa\ menghasilkan\ game\ yang\ mengasikkan\ dan\ bisa\ dimainkan\ secara\ berdua.\ Dalam\ Satu\ keyboard\ diset\ Player\ 1\ pergerakan\ menggunakan\ W\ untuk\ bergerak\ keatas\ ,\ dan\ S\ bergerak\ kebawah.\ Serta\ untuk\ Player\ 2\ menggunakan\ panah\ Atas\ dan\ panah\ bawah\ di\ keyboard.\r\n\ @author\ Fitrah\ Arie\ Ramadhan\r\n\ @version\ Final\ Version,\ 19\ Desember\ 2020\r\n
+comment1.params=
+comment1.target=Pong()
+comment2.params=
+comment2.target=void\ start()
+comment3.params=g
+comment3.target=void\ render(java.awt.Graphics2D)
+comment4.params=e
+comment4.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment5.params=args
+comment5.target=void\ main(java.lang.String[])
+comment6.params=e
+comment6.target=void\ keyPressed(java.awt.event.KeyEvent)
+comment7.params=e
+comment7.target=void\ keyReleased(java.awt.event.KeyEvent)
+comment8.params=e
+comment8.target=void\ keyTyped(java.awt.event.KeyEvent)
+numComments=9

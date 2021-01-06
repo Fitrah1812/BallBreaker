@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Ball
+comment0.text=Class\ for\ 'Ball'\ object
+comment1.params=x\ y\ dx\ dy\ radius
+comment1.target=Ball(double,\ double,\ double,\ double,\ double)
+numComments=2

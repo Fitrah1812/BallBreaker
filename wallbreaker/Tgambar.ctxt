@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Tgambar
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Tgambar\ here.\r\n\ Class\ ini\ berfungsi\ untuk\ rendering\ gambar\ game\r\n\ @author\ Fitrah\ Arie\ Ramadhan\r\n\ @version\ Final\ Version,\ 19\ Desember\ 2020\r\n
+comment1.params=g
+comment1.target=void\ paintComponent(java.awt.Graphics)
+numComments=2

@@ -28,11 +28,11 @@ import java.util.Random;
 
 public class BallBreaker {
     private int height, width;
-    private static File soundFile = new File("Gud.wav");
+    private static File soundFile = new File("impact1.wav");
+    private static File soundFile1 = new File("impact.wav");
     public static boolean isSoundOn = true;
     public static void main(String[] args) {
         JFrame F = new JFrame("Penghancur Semesta");
-        //JFrame F2 = new JFrame("Penghancur Semesta");
         final World w = new World();
         F.add(w);
         F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,18 +42,18 @@ public class BallBreaker {
         KeyMon k = new KeyMon(w);
         F.addKeyListener(k);
         F.setVisible(true);
-        w.initscene();
+        w.initscene(); // Initialize the scene
         Action playAndUpdateAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                w.play();
+                    w.play();
                 }catch(Exception ex) {
-                ex.printStackTrace();
+                    ex.printStackTrace();
                 }
                 w.repaint();        
             }
         };
-        tmr = new Timer(20, playAndUpdateAction); 
+        tmr = new Timer(20, playAndUpdateAction); // Fire the above action event every 20 ms
         tmr.start(); 
         }
         public static Timer tmr; 
@@ -61,15 +61,24 @@ public class BallBreaker {
         throws IOException, UnsupportedAudioFileException,
                LineUnavailableException {
                    AudioInputStream auIn = null;
+                   AudioInputStream auInL = null;
                    Clip clip = null;
+                   Clip clip1 = null;
         try {
-            auIn = AudioSystem.getAudioInputStream(soundFile); 
-            clip = AudioSystem.getClip();                      
+            auIn = AudioSystem.getAudioInputStream(soundFile);
+            auInL = AudioSystem.getAudioInputStream(soundFile1);
+            clip = AudioSystem.getClip(); 
+            clip1 = AudioSystem.getClip();;
             clip.open(auIn);
-            clip.start();   
+            clip1.open(auInL);
+            clip.start();
+            clip1.start();
         } finally {
             if(auIn != null) {
-            auIn.close();
+                auIn.close();
+            }
+            else if(auInL != null){
+                auInL.close();
             }
         }
     }

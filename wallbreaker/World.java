@@ -80,6 +80,11 @@ public class World extends JComponent
 		t2.draw(g2, 350, 290);  // Means the player has cleared all the bricks
 	    }else{
 		t3.draw(g2, 350, 290); // Game ended but some bricks left
+		for(Brick[] Row : bricks) {
+		    for(Brick brick : Row) {
+		    brick.isRendered = false;
+		    }
+		}
 	    }
 	    g2.drawString("Top Scores", 360, 350); // Display top scores of all time
 	    g2.drawString("First:  "+Integer.toString(prefs.getInt("#1", 0)), 360, 370);
@@ -107,9 +112,9 @@ public class World extends JComponent
 	for(Brick[] Row : bricks) {
 	    for(Brick brick : Row) {
 		if(brick.isRendered) {		    
-		    g2.setColor(Color.blue);		   
+		    g2.setColor(Color.orange);		   
 		    g2.fill(brick.br);
-		    g2.setColor(Color.green);
+		    g2.setColor(Color.black);
 		    g2.draw(brick.br);		    
 		}
 	    }
@@ -161,35 +166,97 @@ public class World extends JComponent
     }
 
     public void initscene() {
-	// Initialize the scene
-	double x0 = 50.0, y0 = 100.0;
-	Dimension d = getSize();
-	ball  = new Ball(d.width/2, d.height - 60, 4.0, -4.0, 10.0);
-	player = new Player(d.width/2 - 50, d.height - 50, 100, 10);	
-	bricks = new Brick[3][];
-	bricks[0] = new Brick[7]; // First row
-	bricks[1] = new Brick[5]; // Second row
-	bricks[2] = new Brick[3]; // Third row
-	double xs = x0, ys = y0;
-	for(int i=0; i<7; ++i) {  // Layout first row
-	    bricks[0][i] = new Brick(xs, ys);
-	    xs += Brick.width;
-	}
-	xs = x0 + Brick.width;
-	ys = y0 + Brick.height;
-	for(int i=0; i<5; ++i) { // Layout second row
-	    bricks[1][i] = new Brick(xs, ys);
-	    xs += Brick.width;
-	}
-	xs = x0 + (2.0 * Brick.width);
-	ys = y0 + (2.0 * Brick.height);
-	for(int i=0; i<3; ++i) { // Layout third row
-	    bricks[2][i] = new Brick(xs, ys);
-	    xs += Brick.width;
-	}
-	f1 = new Font("Algerian", Font.BOLD, 32);
-	f2 = new Font("Algerian", Font.BOLD, 20);
-    }
+        // Initialize the scene
+        double x0 = 50.0, y0 = 100.0;
+        Dimension d = getSize();
+        ball  = new Ball(d.width/2, d.height - 60, 4.0, -4.0, 20.0);
+        player = new Player(d.width/2 - 50, d.height - 50, 200, 10);
+        //player2 = new Player(d.width/2 - 50, d.height, 100, 10);
+        bricks = new Brick[11][];
+        bricks[0] = new Brick[10]; // First row
+        bricks[1] = new Brick[9]; // Second row
+        bricks[2] = new Brick[10]; // Third row
+        bricks[3] = new Brick[9]; 
+        bricks[4] = new Brick[10];
+        bricks[5] = new Brick[9];
+        bricks[6] = new Brick[10];
+        bricks[7] = new Brick[9];
+        bricks[8] = new Brick[10];
+        bricks[9] = new Brick[9];
+        bricks[10] = new Brick[10];
+        
+        double xs = x0, ys = y0;
+        for(int i=0; i<10; ++i) {  // Layout first row
+            bricks[0][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + 0.5*Brick.width;
+        ys = y0 + Brick.height;
+        for(int i=0; i<9; ++i) { // Layout second row
+            bricks[1][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.0 * Brick.width);
+        ys = y0 + (2.0 * Brick.height);
+        for(int i=0; i<10; ++i) { // Layout third row
+            bricks[2][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.5 * Brick.width);
+        ys = y0 + (3.0 * Brick.height);
+        for(int i=0; i<9; ++i) { 
+            bricks[3][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.0 * Brick.width);
+        ys = y0 + (4.0 * Brick.height);
+        for(int i=0; i<10; ++i) { 
+            bricks[4][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.5 * Brick.width);
+        ys = y0 + (5.0 * Brick.height);
+        for(int i=0; i<9; ++i) { 
+            bricks[5][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.0 * Brick.width);
+        ys = y0 + (6.0 * Brick.height);
+        for(int i=0; i<10; ++i) { 
+            bricks[6][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.5 * Brick.width);
+        ys = y0 + (7.0 * Brick.height);
+        for(int i=0; i<9; ++i) { 
+            bricks[7][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.0 * Brick.width);
+        ys = y0 + (8.0 * Brick.height);
+        for(int i=0; i<10; ++i) { 
+            bricks[8][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.5 * Brick.width);
+        ys = y0 + (9.0 * Brick.height);
+        for(int i=0; i<9; ++i) { 
+            bricks[9][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        xs = x0 + (0.0 * Brick.width);
+        ys = y0 + (10.0 * Brick.height);
+        for(int i=0; i<10; ++i) { 
+            bricks[10][i] = new Brick(xs, ys);
+            xs += Brick.width;
+        }
+        
+        //xs = x0 + (4.0 * Brick.width);
+        //ys = y0 + (4.0 * Brick.height);
+        f1 = new Font("Consolas", Font.BOLD, 32);
+        f2 = new Font("Consolas", Font.BOLD, 20);
+        
+       }
 
     private void manageScores() { // Manages the top scores
 	int[] a  = new int[3];
@@ -247,7 +314,7 @@ public class World extends JComponent
 	    }	    
 	}
 	checkCollisionWithPlayer(); // Check collision with the player
-	if(ball.y < 200) { // If the ball is near the bricks
+	if(ball.y < 400) { // If the ball is near the bricks
 	    for(Brick[] Row : bricks) {
 		for(Brick brick : Row) {
 		    checkCollisionWithBrick(brick); // Check for collison with each of the bricks
@@ -283,7 +350,7 @@ public class World extends JComponent
 		    BallBreaker.isSoundOn = false;
 		}
 		++score; // Increment score
-		if(score == 15) { // If score is 50 end the game
+		if(score == 105) { // If score is 50 end the game
 		    isGameOver = true;
 		    BallBreaker.tmr.stop();
 		    manageScores();

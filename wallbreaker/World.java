@@ -159,7 +159,7 @@ public class World extends JComponent
 	    }
 	}
 	if((k == KeyEvent.VK_RIGHT) || (k == KeyEvent.VK_KP_RIGHT)|| k== KeyEvent.VK_D){
-	    if(player.x < (d.width - player.width - shift)) {
+	    if(player.x < (d.width - player.width)) { //paddle menyentuh ujung kanan dinding
 		player.x += shift;  // Move right
 	    }
 	}

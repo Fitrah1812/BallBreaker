@@ -25,7 +25,16 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import java.util.Random;
-
+import java.awt.RenderingHints;
+import java.awt.BasicStroke;
+import java.util.*;
+import javax.swing.*;
+import java.io.*;
+import java.awt.event.*;
+import javax.swing.plaf.metal.*;
+import javax.swing.text.*;
+import java.awt.RenderingHints.*;
+import java.lang.*;
 /* Class to denote 'World" aka the "The space in which the game occurs" */
 public class World extends JComponent
 {
@@ -44,7 +53,7 @@ public class World extends JComponent
     private FontRenderContext frc;
     private Preferences prefs; // Top score preferences
     public static Pong pong;
-    public int width = 1080, height = 720;
+    public int width = 300, height =500;
     public Tgambar tgambar;
     public boolean bot = false, selectingDifficulty;
     public boolean w, s, up, down;
@@ -63,15 +72,34 @@ public class World extends JComponent
         //jframe.add(tgambar);
         //jframe.addKeyListener(this);
         //timer.start();
-    e = new Ellipse2D.Double();
-    c = new Rectangle2D.Double();
-    prefs = Preferences.userNodeForPackage(this.getClass());
+        JMenuBar mb = new JMenuBar();
+        JMenu m1 = new JMenu("File");
+        JMenuItem mi1 = new JMenuItem("New");
+        JMenuItem mi2 = new JMenuItem("Open");
+        JMenuItem mi3 = new JMenuItem("Save");
+        JMenuItem mi4 = new JMenuItem("Print");
+        //mi1.addActionListener(this);
+        ////mi2.addActionListener(this);
+        //mi3.addActionListener(this);
+        //mi4.addActionListener(this);
+        m1.add(mi1);
+        m1.add(mi2);
+        m1.add(mi3);
+        m1.add(mi4);
+        e = new Ellipse2D.Double();
+        c = new Rectangle2D.Double();
+        prefs = Preferences.userNodeForPackage(this.getClass());
     }
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        //super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.GREEN);
+        g.setColor(Color.BLACK);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         frc = g2.getFontRenderContext();
-        if(isGameOver) {        
+        if(isGameOver){ 
+            g2.setColor(Color.BLACK);
+            //g.fillRect(0, 0, width, height);
             t1 = new TextLayout("Game Over", f1, frc);
             t2 = new TextLayout("Keren!", f2, frc);
             t3 = new TextLayout("Coba Lagi", f2, frc);
@@ -87,8 +115,7 @@ public class World extends JComponent
             g2.drawString("Second: "+Integer.toString(prefs.getInt("#2", 0)), 360, 390);
             g2.drawString("Third:  "+Integer.toString(prefs.getInt("#3", 0)), 360, 410);
             g2.drawString("Fourth: "+Integer.toString(prefs.getInt("#4", 0)), 360, 430);
-            g2.drawString("Fifth: "+Integer.toString(prefs.getInt("#5", 0)), 360, 450);
-            
+            g2.drawString("Fifth: "+Integer.toString(prefs.getInt("#5", 0)), 360, 450);  
         }
         //else if(!isGameOver){
         //    if(gameStatus==1){
@@ -116,7 +143,69 @@ public class World extends JComponent
             }
         }
     }
-    
+    public void render(Graphics2D g1)
+    {
+        g1.setColor(Color.BLUE);
+        g1.fillRect(0, 0, width, height);
+        g1.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        if (gameStatus == 0)
+        {
+            g1.setColor(Color.WHITE);
+            g1.setFont(new Font("Arial", 1, 50));
+            g1.drawString("SELAMAT DATANG DIGAME", width / 5, 50);
+            if (!selectingDifficulty)
+            {
+                g1.setFont(new Font("Arial", 1, 30));
+                g1.drawString("Press Space to Play", width / 2 - 150, height / 2 - 25);
+                g1.drawString("Press Shift to Play with Bot", width / 2 - 200, height / 2 + 25);
+                g1.drawString("<< Score Limit: " + scoreLimit + " >>", width / 2 - 150, height / 2 + 75);
+                g1.drawString("Keterangan : ", width / 2 - 150, height / 2 + 125);
+                g1.drawString("< = Mengurangi Poin", width / 2 - 150, height / 2 + 150);
+                g1.drawString("> = Menambah Poin", width / 2 - 150, height / 2 + 200);
+                g1.drawString("Space = Bermain", width / 2 - 150, height / 2 + 250);
+                g1.drawString("Shift = Bermain dengan bot", width / 2 - 150, height / 2 + 300);
+            }
+        }
+        if (selectingDifficulty)
+        {
+            String string = botDifficulty == 0 ? "Easy" : (botDifficulty == 1 ? "Medium" : "Hard");
+            g1.setFont(new Font("Arial", 1, 30));
+            g1.drawString("<< Bot Difficulty: " + string + " >>", width / 2 - 180, height / 2 - 25);
+            g1.drawString("Press Space to Play", width / 2 - 150, height / 2 + 25);
+        }
+        if (gameStatus == 1)
+        {
+            g1.setColor(Color.WHITE);
+            g1.setFont(new Font("ALGERIAN", 1, 50));
+            g1.drawString("PAUSED", width / 2 - 103, height / 2 - 25);
+        }
+        if (gameStatus == 1 || gameStatus == 2)
+        {
+            g1.setColor(Color.WHITE);
+            g1.setStroke(new BasicStroke(5f));
+            g1.drawLine(width / 2, 0, width / 2, height);
+            g1.setStroke(new BasicStroke(2f));
+            g1.drawOval(width / 2 - 150, height / 2 - 150, 300, 300);
+            g1.setFont(new Font("Arial", 1, 50));
+        }
+        if (gameStatus == 3)
+        {
+            g1.setColor(Color.WHITE);
+            g1.setFont(new Font("ARIAL", 1, 50));
+            g1.drawString("TERIMAKASIH TELAH BERMAIN", width / 6  , 50);
+            if (bot && playerWon == 2)
+            {
+                g1.drawString("The Bot Wins!", width / 2 - 170, 200);
+            }
+            else
+            {
+                g1.drawString("Player " + playerWon + " Wins!", width / 2 - 165, 200);
+            }
+            g1.setFont(new Font("Serif", 1, 30));
+            g1.drawString("Press Space to Play Again", width / 2 - 165, height / 2 - 25);
+            g1.drawString("Press ESC for Menu", width / 2 - 135, height / 2 + 25);
+        }
+    }
     public void resetPlayer() {
         // Resets the player position
         Dimension d = getSize();
@@ -126,7 +215,6 @@ public class World extends JComponent
         ball.dy = -4.0;
         player.x = d.width/2 - 50;
     }
-
     public void resetBricks() {
         for(Brick[] Row : bricks) {
             for(Brick brick : Row) {
@@ -134,14 +222,12 @@ public class World extends JComponent
             }   
         }
     }
-    
     public void resetStats() {
     // Resets the stats
     lives = 3;
     score = 0;
     isGameOver = false;
     }
-    
     public void handleEvent(KeyEvent e) {
         // Handles the keyboard events
         double shift = 15;
@@ -155,13 +241,10 @@ public class World extends JComponent
         }
         if((k == KeyEvent.VK_RIGHT) || (k == KeyEvent.VK_KP_RIGHT)|| k== KeyEvent.VK_D){
             if(player.x < (d.width - player.width - shift)){
-                if(player.x < (d.width - player.width)) {
-                    player.x += shift;  // Move right
-                }
+                player.x += shift;  // Move right
             }
         }
     }
-
     public void initscene() {
         double x0 = 0, y0 = 0;
         Dimension d = getSize();
@@ -175,6 +258,8 @@ public class World extends JComponent
         bricks[4] = new Brick[6];
         bricks[5] = new Brick[4];
         bricks[6] = new Brick[2];
+        //bricks[7] = new Brick[8];
+        //bricks[8] = new Brick[8];
         double xs = x0 + (3.0 * Brick.width);
         double ys = y0;
         for(int i=0; i<2; ++i) {  // Layout first row
@@ -223,11 +308,12 @@ public class World extends JComponent
     }
 
     private void manageScores() { // Manages the top scores
-        int[] a  = new int[3];
+        int[] a  = new int[5];
         a[0] = prefs.getInt("#1", 0);
         a[1] = prefs.getInt("#2", 0);
         a[2] = prefs.getInt("#3", 0);
-        a[2] = prefs.getInt("#3", 0);
+        a[3] = prefs.getInt("#4", 0);
+        a[4] = prefs.getInt("#5", 0);
         if(score > a[0]) { // Sort them
             prefs.putInt("#1", score);
             prefs.putInt("#2", a[0]);

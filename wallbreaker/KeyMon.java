@@ -59,7 +59,7 @@ class KeyMon implements KeyListener {
 		w.resetStats();
 		BallBreaker.tmr.start(); 
 	    }
-	}else if(GameStatus == 0){ 
+	}else if(w.GameStatus == 0){ 
 	    if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 		w.resetPlayer(); 
 		w.resetBricks(); 

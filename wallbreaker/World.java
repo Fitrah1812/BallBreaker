@@ -62,6 +62,7 @@ public class World extends JComponent
     public int botDifficulty, botMoves, botCooldown = 0;
     public Random random;
     public JFrame jframe;
+    public int Difficulty = 0; //0 easy, 1 medium, 2 hard
     public World() {
         //Timer timer = new Timer(20, this);
         //random = new Random();
@@ -119,11 +120,7 @@ public class World extends JComponent
             g2.drawString("Fourth: "+Integer.toString(prefs.getInt("#4", 0)), 360, 430);
             g2.drawString("Fifth: "+Integer.toString(prefs.getInt("#5", 0)), 360, 450);  
         }
-        //else if(!isGameOver){
-        //    if(gameStatus==1){
-        //        g.drawString("PAUSED", width/2 -103, height/2 -25);
-        //    }
-        //}
+        
         //1 artinya sedang main
         if(GameStatus == 1){
             e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
@@ -157,6 +154,14 @@ public class World extends JComponent
             g.drawString("Press Shift to Play with Bot", 700 / 2 - 200, 700 / 2 + 25);
             //kalau ga di stop pas main menu bola nya udah jalan cuman ga keliatan
             BallBreaker.tmr.stop();
+        }
+        if(GameStatus == 3){
+            String string = Difficulty == 0 ? "Easy" : (Difficulty == 1 ? "Medium" : "Hard");
+ 
+            g.setFont(new Font("Arial", 1, 30));
+ 
+            g.drawString("<< Bot Difficulty: " + string + " >>", 700 / 2 - 180, 700 / 2 - 25);
+            g.drawString("Press Space to Play", 700 / 2 - 150, 700 / 2 + 25);
         }
     }
     

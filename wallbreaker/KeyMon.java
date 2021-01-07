@@ -81,7 +81,7 @@ class KeyMon implements KeyListener {
 	        BallBreaker.tmr.start();
 	        
 	    }
-	    if(e.getKeyCode() == KeyEvent.VK_LEFT){
+	    if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
 	        if (w.Difficulty > 0)
                 {
                     w.Difficulty--;
@@ -92,7 +92,7 @@ class KeyMon implements KeyListener {
                 }
                 w.repaint();
 	    }
-	    if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+	    if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
 	        if (w.Difficulty < 3)
                 {
                     w.Difficulty++;

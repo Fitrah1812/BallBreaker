@@ -72,8 +72,36 @@ class KeyMon implements KeyListener {
 	    }
 	}else if(w.GameStatus == 2){ //Tampilan awal tekan space untuk main
 	    if(e.getKeyCode() == KeyEvent.VK_SPACE) { // If 'SPACE' is pressed
-		w.GameStatus = 1;
-		BallBreaker.tmr.start();
+		w.GameStatus = 3;
+		w.repaint();
+	    }
+	}else if(w.GameStatus == 3){
+	    if(e.getKeyCode() == KeyEvent.VK_SPACE){
+	        w.GameStatus = 1;
+	        BallBreaker.tmr.start();
+	        
+	    }
+	    if(e.getKeyCode() == KeyEvent.VK_LEFT){
+	        if (w.Difficulty > 0)
+                {
+                    w.Difficulty--;
+                }
+                else
+                {
+                    w.Difficulty = 2;
+                }
+                w.repaint();
+	    }
+	    if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+	        if (w.Difficulty < 3)
+                {
+                    w.Difficulty++;
+                }
+                else
+                {
+                    w.Difficulty = 0;
+                }
+                w.repaint();
 	    }
 	}
 	if(BallBreaker.tmr.isRunning()) { // If the game is running

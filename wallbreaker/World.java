@@ -54,11 +54,10 @@ public class World extends JComponent
     private FontRenderContext frc;
     private Preferences prefs; // Top score preferences
     public static Pong pong;
-    public int width = 300, height =500;
+    public int width = 800, height =1080;
     public Tgambar tgambar;
     public boolean bot = false, selectingDifficulty;
     public boolean w, s, up, down;
-    public  scoreLimit = 7, playerWon;
     public int botDifficulty, botMoves, botCooldown = 0;
     public Random random;
     public JFrame jframe;
@@ -93,36 +92,45 @@ public class World extends JComponent
         prefs = Preferences.userNodeForPackage(this.getClass());
     }
     public void paintComponent(Graphics g) {
-        //super.paintComponent(g);
+        super.paintComponent(g);
+        g.setColor(Color.GREEN);
+        g.fillRect(0, 0, width, height);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.GREEN);
-        g.setColor(Color.BLACK);
+        //g.setColor(Color.BLACK);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         frc = g2.getFontRenderContext();
         //0 artinya sudah over gamenya
-        if(GameStatus == 0){ 
+        if(GameStatus == 0){
+            g.setColor(Color.ORANGE);
+            g.fillRect(0, 0, width, height);
             g2.setColor(Color.BLACK);
             //g.fillRect(0, 0, width, height);
             t1 = new TextLayout("Game Over", f1, frc);
             t2 = new TextLayout("Keren!", f2, frc);
             t3 = new TextLayout("Coba Lagi", f2, frc);
+            //t4 = new TextLayout("Tekan 'ESC' Untuk Bermain Lagi", f1, frc);
             t1.draw(g2, 300, 270);
-            if(score == 15) {
+            if(score == 32) {
                 t2.draw(g2, 350, 290);  // Means the player has cleared all the bricks
             }
             else{
-            t3.draw(g2, 350, 290); // Game ended but some bricks left
+                t3.draw(g2, 350, 290); // Game ended but some bricks left
             }
             g2.drawString("Top Scores", 360, 350); // Display top scores of all time
             g2.drawString("First:  "+Integer.toString(prefs.getInt("#1", 0)), 360, 370);
             g2.drawString("Second: "+Integer.toString(prefs.getInt("#2", 0)), 360, 390);
             g2.drawString("Third:  "+Integer.toString(prefs.getInt("#3", 0)), 360, 410);
             g2.drawString("Fourth: "+Integer.toString(prefs.getInt("#4", 0)), 360, 430);
-            g2.drawString("Fifth: "+Integer.toString(prefs.getInt("#5", 0)), 360, 450);  
+            g2.drawString("Fifth: "+Integer.toString(prefs.getInt("#5", 0)), 360, 450); 
+            g2.drawString("Tekan 'ESC' untuk bermain lagi", 310, 520);
         }
         
         //1 artinya sedang main
         if(GameStatus == 1){
+            g.setColor(Color.PINK);
+            g.fillRect(0, 0, width, height);
+            g2.setColor(Color.BLACK);
             e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
             c.setFrame(player.x, player.y, player.width, player.height); // Set player position
             g2.fill(e);
@@ -146,22 +154,27 @@ public class World extends JComponent
         }
         //2 artinya sedang main menu
         if(GameStatus == 2){
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Arial", 1, 50));
-            g.drawString("PONG", 700 / 2 - 75, 50);
+            g2.setColor(Color.BLACK);
+            g.setColor(Color.RED);
+            g.setFont(new Font("ALGERIAN", 1, 40));
+            g.drawString("Selamat Datang",200,50);
+            g.drawString("di Game Penghancur Semesta",100-20,100);
             g.setFont(new Font("Arial", 1, 30));
-            g.drawString("Press Space to Play", 700 / 2 - 150, 700 / 2 - 25);
-            g.drawString("Press Shift to Play with Bot", 700 / 2 - 200, 700 / 2 + 25);
+            g.drawString("Tekan 'Space' untuk melanjutkan menu", 110, 700 / 2 - 25);
+            //g.drawString("Press Shift to Play with Bot", 700 / 2 - 200, 700 / 2 + 25);
             //kalau ga di stop pas main menu bola nya udah jalan cuman ga keliatan
             BallBreaker.tmr.stop();
         }
         if(GameStatus == 3){
+            g2.setColor(Color.BLACK);
+            g.setColor(Color.BLUE);
+            g.setFont(new Font("ALGERIAN", 1, 40));
+            g.drawString("Silahkan Memilih",200,50);
+            g.drawString("Kesulitan di dalam Game ini",100-20,100);
             String string = Difficulty == 0 ? "Easy" : (Difficulty == 1 ? "Medium" : "Hard");
- 
-            g.setFont(new Font("Arial", 1, 30));
- 
-            g.drawString("<< Bot Difficulty: " + string + " >>", 700 / 2 - 180, 700 / 2 - 25);
-            g.drawString("Press Space to Play", 700 / 2 - 150, 700 / 2 + 25);
+            g.setFont(new Font("TIMESNEWROMAN", 1, 30));
+            g.drawString("<< Tingkat Kesulitan: " + string + " >>", 700 / 2 - 180, 700 / 2 - 25);
+            g.drawString("Tekan 'Space' untuk Bermain", 700 / 2 - 150 - 20, 700 / 2 + 25);
         }
     }
     

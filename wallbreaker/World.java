@@ -546,7 +546,7 @@ public class World extends JComponent
             }       
         }
         checkCollisionWithPlayer(); // Check collision with the player
-        if(ball.y < 200) { // If the ball is near the bricks
+        if(ball.y < 400) { // If the ball is near the bricks
             for(Brick[] Row : bricks) {
                 for(Brick brick : Row) {
                     checkCollisionWithBrick(brick); // Check for collison with each of the bricks
@@ -583,7 +583,20 @@ public class World extends JComponent
                     BallBreaker.isSoundOn = false;
                 }
                 ++score; // Increment score
-                if(score == 32) { // If score is 50 end the game
+                //end score untuk easy
+                if(Difficulty == 0 && score == 2) { // If score is 50 end the game
+                    GameStatus = 0;
+                    BallBreaker.tmr.stop();
+                    manageScores();
+                }
+                //end score untuk medium
+                if(Difficulty == 1 && score == 4){
+                    GameStatus = 0;
+                    BallBreaker.tmr.stop();
+                    manageScores();
+                }
+                //end score untuk hard
+                if(Difficulty == 2 && score == 6){
                     GameStatus = 0;
                     BallBreaker.tmr.stop();
                     manageScores();

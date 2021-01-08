@@ -42,7 +42,7 @@ public class BallBreaker {
         KeyMon k = new KeyMon(w);
         F.addKeyListener(k);
         F.setVisible(true);
-        w.initscene(); // Initialize the scene
+        //initscene dipindah ke keymon
         Action playAndUpdateAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 try {

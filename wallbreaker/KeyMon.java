@@ -79,7 +79,8 @@ class KeyMon implements KeyListener {
 	    if(e.getKeyCode() == KeyEvent.VK_SPACE){
 	        w.GameStatus = 1;
 	        BallBreaker.tmr.start();
-	        
+	        // Initialize the scene
+	        w.initscene(w.Difficulty);
 	    }
 	    if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
 	        if (w.Difficulty > 0)

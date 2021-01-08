@@ -128,26 +128,80 @@ public class World extends JComponent
         
         //1 artinya sedang main
         if(GameStatus == 1){
-            g.setColor(Color.PINK);
-            g.fillRect(0, 0, width, height);
-            g2.setColor(Color.BLACK);
-            e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
-            c.setFrame(player.x, player.y, player.width, player.height); // Set player position
-            g2.fill(e);
-            g2.draw(e);
-            g2.fill(c);
-            g2.draw(c);
-            g2.drawString("Score: "+Integer.toString(score), 20, 560);
-            g2.drawString("Game By Fitrah And Ivan", 250, 720);
-            g2.drawString("Lives: "+Integer.toString(lives)+" Remaining", 650, 560);
-            // Draw the Bricks
-            for(Brick[] Row : bricks) {
-                for(Brick brick : Row) {
-                    if(brick.isRendered) {          
-                        g2.setColor(Color.blue);           
-                        g2.fill(brick.br);
-                        g2.setColor(Color.green);
-                        g2.draw(brick.br);          
+            //buat ngegambar yang easy
+            if(Difficulty == 0){
+                
+                g.setColor(Color.PINK);
+                g.fillRect(0, 0, width, height);
+                g2.setColor(Color.BLACK);
+                e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
+                c.setFrame(player.x, player.y, player.width, player.height); // Set player position
+                g2.fill(e);
+                g2.draw(e);
+                g2.fill(c);
+                g2.draw(c);
+                g2.drawString("Score: "+Integer.toString(score), 20, 560);
+                g2.drawString("Game By Fitrah And Ivan", 250, 720);
+                g2.drawString("Lives: "+Integer.toString(lives)+" Remaining", 650, 560);
+                // Draw the Bricks
+                for(Brick[] Row : bricks) {
+                    for(Brick brick : Row) {
+                        if(brick.isRendered) {          
+                            g2.setColor(Color.blue);           
+                            g2.fill(brick.br);
+                            g2.setColor(Color.green);
+                            g2.draw(brick.br);          
+                        }
+                    }
+                }
+            //buat ngegambar yang medium
+            }else if(Difficulty == 1){
+                g.setColor(Color.PINK);
+                g.fillRect(0, 0, width, height);
+                g2.setColor(Color.BLACK);
+                e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
+                c.setFrame(player.x, player.y, player.width, player.height); // Set player position
+                g2.fill(e);
+                g2.draw(e);
+                g2.fill(c);
+                g2.draw(c);
+                g2.drawString("Score: "+Integer.toString(score), 20, 560);
+                g2.drawString("Game By Fitrah And Ivan", 250, 720);
+                g2.drawString("Lives: "+Integer.toString(lives)+" Remaining", 650, 560);
+                // Draw the Bricks
+                for(Brick[] Row : bricks) {
+                    for(Brick brick : Row) {
+                        if(brick.isRendered) {          
+                            g2.setColor(Color.blue);           
+                            g2.fill(brick.br);
+                            g2.setColor(Color.green);
+                            g2.draw(brick.br);          
+                        }
+                    }
+                }
+             //buat ngegambar yang hard
+            }else if(Difficulty == 2){
+                g.setColor(Color.PINK);
+                g.fillRect(0, 0, width, height);
+                g2.setColor(Color.BLACK);
+                e.setFrame(ball.x, ball.y, ball.radius, ball.radius); // Set ball position
+                c.setFrame(player.x, player.y, player.width, player.height); // Set player position
+                g2.fill(e);
+                g2.draw(e);
+                g2.fill(c);
+                g2.draw(c);
+                g2.drawString("Score: "+Integer.toString(score), 20, 560);
+                g2.drawString("Game By Fitrah And Ivan", 250, 720);
+                g2.drawString("Lives: "+Integer.toString(lives)+" Remaining", 650, 560);
+                // Draw the Bricks
+                for(Brick[] Row : bricks) {
+                    for(Brick brick : Row) {
+                        if(brick.isRendered) {          
+                            g2.setColor(Color.blue);           
+                            g2.fill(brick.br);
+                            g2.setColor(Color.green);
+                            g2.draw(brick.br);          
+                        }
                     }
                 }
             }
@@ -218,66 +272,220 @@ public class World extends JComponent
             }
         }
     }
-    public void initscene() {
-        double x0 = 0, y0 = 0;
-        Dimension d = getSize();
-        ball  = new Ball(d.width/2, d.height - 60, 4.0, -4.0, 10.0);
-        player = new Player(d.width/2 - 50, d.height - 50, 100, 10);    
-        bricks = new Brick[7][];
-        bricks[0] = new Brick[2]; // First row
-        bricks[1] = new Brick[4]; // Second row
-        bricks[2] = new Brick[6]; // Third row
-        bricks[3] = new Brick[8];
-        bricks[4] = new Brick[6];
-        bricks[5] = new Brick[4];
-        bricks[6] = new Brick[2];
-        //bricks[7] = new Brick[8];
-        //bricks[8] = new Brick[8];
-        double xs = x0 + (3.0 * Brick.width);
-        double ys = y0;
-        for(int i=0; i<2; ++i) {  // Layout first row
-            bricks[0][i] = new Brick(xs, ys);
-            xs += Brick.width;
+    public void initscene(int diff) {
+        //ubah yang ini buat wall yg easy
+        if(diff == 0){
+            double x0 = 0, y0 = 0;
+            Dimension d = getSize();
+            ball  = new Ball(d.width/2, d.height - 60, 4.0, -4.0, 10.0);
+            player = new Player(d.width/2 - 50, d.height - 50, 100, 10);    
+            bricks = new Brick[7][];
+            bricks[0] = new Brick[2]; // First row
+            bricks[1] = new Brick[4]; // Second row
+            bricks[2] = new Brick[6]; // Third row
+            bricks[3] = new Brick[8];
+            bricks[4] = new Brick[6];
+            bricks[5] = new Brick[4];
+            bricks[6] = new Brick[2];
+            //bricks[7] = new Brick[8];
+            //bricks[8] = new Brick[8];
+            double xs = x0 + (3.0 * Brick.width);
+            double ys = y0;
+            for(int i=0; i<2; ++i) {  // Layout first row
+                bricks[0][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (2.0 * Brick.width);
+            ys = y0 + Brick.height;
+            for(int i=0; i<4; ++i) { // Layout second row
+                bricks[1][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + Brick.width;
+            ys = y0 + (2.0 * Brick.height);
+            for(int i=0; i<6; ++i) { // Layout third row
+                bricks[2][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0;
+            ys = y0 + (3.0 * Brick.height);
+            for(int i=0; i<8; ++i) { // Layout third row
+                bricks[3][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + Brick.width;
+            ys = y0 + (4.0 * Brick.height);
+            for(int i=0; i<6; ++i) { // Layout third row
+                bricks[4][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (2.0 * Brick.width);
+            ys = y0 + (5.0 * Brick.height);
+            for(int i=0; i<4; ++i) {  // Layout first row
+                bricks[5][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (3.0 * Brick.width);
+            ys = y0 + (6.0 * Brick.height);
+            for(int i=0; i<2; ++i) {  // Layout first row
+                bricks[6][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            
+            f1 = new Font("Algerian", Font.BOLD, 32);
+            f2 = new Font("Algerian", Font.BOLD, 20);
+         //ubah yang ini buat wall yg medium
+        }else if(diff == 1){
+            double x0 = 0, y0 = 0;
+            Dimension d = getSize();
+            ball  = new Ball(d.width/2, d.height - 60, 4.0, -4.0, 10.0);
+            player = new Player(d.width/2 - 50, d.height - 50, 100, 10);    
+            bricks = new Brick[9][];
+            bricks[0] = new Brick[2]; // First row
+            bricks[1] = new Brick[4]; // Second row
+            bricks[2] = new Brick[6]; // Third row
+            bricks[3] = new Brick[8];
+            bricks[4] = new Brick[6];
+            bricks[5] = new Brick[4];
+            bricks[6] = new Brick[2];
+            bricks[7] = new Brick[8];
+            bricks[8] = new Brick[8];
+            double xs = x0 + (3.0 * Brick.width);
+            double ys = y0;
+            for(int i=0; i<2; ++i) {  // Layout first row
+                bricks[0][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (2.0 * Brick.width);
+            ys = y0 + Brick.height;
+            for(int i=0; i<4; ++i) { // Layout second row
+                bricks[1][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + Brick.width;
+            ys = y0 + (2.0 * Brick.height);
+            for(int i=0; i<6; ++i) { // Layout third row
+                bricks[2][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0;
+            ys = y0 + (3.0 * Brick.height);
+            for(int i=0; i<8; ++i) { // Layout third row
+                bricks[3][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + Brick.width;
+            ys = y0 + (4.0 * Brick.height);
+            for(int i=0; i<6; ++i) { // Layout third row
+                bricks[4][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (2.0 * Brick.width);
+            ys = y0 + (5.0 * Brick.height);
+            for(int i=0; i<4; ++i) {  // Layout first row
+                bricks[5][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (3.0 * Brick.width);
+            ys = y0 + (6.0 * Brick.height);
+            for(int i=0; i<2; ++i) {  // Layout first row
+                bricks[6][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 ;
+            ys = y0 + (7.0 * Brick.height);
+            for(int i=0; i<8; ++i) {  // Layout first row
+                bricks[7][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 ;
+            ys = y0 + (8.0 * Brick.height);
+            for(int i=0; i<8; ++i) {  // Layout first row
+                bricks[8][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            f1 = new Font("Algerian", Font.BOLD, 32);
+            f2 = new Font("Algerian", Font.BOLD, 20);
+          //ubah yang ini buat wall yg hard
+        }else if(diff == 2){
+            double x0 = 0, y0 = 0;
+            Dimension d = getSize();
+            ball  = new Ball(d.width/2, d.height - 60, 4.0, -4.0, 10.0);
+            player = new Player(d.width/2 - 50, d.height - 50, 100, 10);    
+            bricks = new Brick[10][];
+            bricks[0] = new Brick[2]; // First row
+            bricks[1] = new Brick[4]; // Second row
+            bricks[2] = new Brick[6]; // Third row
+            bricks[3] = new Brick[8];
+            bricks[4] = new Brick[6];
+            bricks[5] = new Brick[4];
+            bricks[6] = new Brick[2];
+            bricks[7] = new Brick[8];
+            bricks[8] = new Brick[8];
+            bricks[9] = new Brick[10];
+            double xs = x0 + (3.0 * Brick.width);
+            double ys = y0;
+            for(int i=0; i<2; ++i) {  // Layout first row
+                bricks[0][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (2.0 * Brick.width);
+            ys = y0 + Brick.height;
+            for(int i=0; i<4; ++i) { // Layout second row
+                bricks[1][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + Brick.width;
+            ys = y0 + (2.0 * Brick.height);
+            for(int i=0; i<6; ++i) { // Layout third row
+                bricks[2][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0;
+            ys = y0 + (3.0 * Brick.height);
+            for(int i=0; i<8; ++i) { // Layout third row
+                bricks[3][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + Brick.width;
+            ys = y0 + (4.0 * Brick.height);
+            for(int i=0; i<6; ++i) { // Layout third row
+                bricks[4][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (2.0 * Brick.width);
+            ys = y0 + (5.0 * Brick.height);
+            for(int i=0; i<4; ++i) {  // Layout first row
+                bricks[5][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 + (3.0 * Brick.width);
+            ys = y0 + (6.0 * Brick.height);
+            for(int i=0; i<2; ++i) {  // Layout first row
+                bricks[6][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 ;
+            ys = y0 + (7.0 * Brick.height);
+            for(int i=0; i<8; ++i) {  // Layout first row
+                bricks[7][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 ;
+            ys = y0 + (8.0 * Brick.height);
+            for(int i=0; i<8; ++i) {  // Layout first row
+                bricks[8][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            xs = x0 ;
+            ys = y0 + (9.0 * Brick.height);
+            for(int i=0; i<10; ++i) {  // Layout first row
+                bricks[9][i] = new Brick(xs, ys);
+                xs += Brick.width;
+            }
+            f1 = new Font("Algerian", Font.BOLD, 32);
+            f2 = new Font("Algerian", Font.BOLD, 20);
         }
-        xs = x0 + (2.0 * Brick.width);
-        ys = y0 + Brick.height;
-        for(int i=0; i<4; ++i) { // Layout second row
-            bricks[1][i] = new Brick(xs, ys);
-            xs += Brick.width;
-        }
-        xs = x0 + Brick.width;
-        ys = y0 + (2.0 * Brick.height);
-        for(int i=0; i<6; ++i) { // Layout third row
-            bricks[2][i] = new Brick(xs, ys);
-            xs += Brick.width;
-        }
-        xs = x0;
-        ys = y0 + (3.0 * Brick.height);
-        for(int i=0; i<8; ++i) { // Layout third row
-            bricks[3][i] = new Brick(xs, ys);
-            xs += Brick.width;
-        }
-        xs = x0 + Brick.width;
-        ys = y0 + (4.0 * Brick.height);
-        for(int i=0; i<6; ++i) { // Layout third row
-            bricks[4][i] = new Brick(xs, ys);
-            xs += Brick.width;
-        }
-        xs = x0 + (2.0 * Brick.width);
-        ys = y0 + (5.0 * Brick.height);
-        for(int i=0; i<4; ++i) {  // Layout first row
-            bricks[5][i] = new Brick(xs, ys);
-            xs += Brick.width;
-        }
-        xs = x0 + (3.0 * Brick.width);
-        ys = y0 + (6.0 * Brick.height);
-        for(int i=0; i<2; ++i) {  // Layout first row
-            bricks[6][i] = new Brick(xs, ys);
-            xs += Brick.width;
-        }
-        
-        f1 = new Font("Algerian", Font.BOLD, 32);
-        f2 = new Font("Algerian", Font.BOLD, 20);
     }
 
     private void manageScores() { // Manages the top scores
